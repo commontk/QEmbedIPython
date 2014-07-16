@@ -1,0 +1,15 @@
+[General]
+launcherNoSplashScreen=True
+additionalPathVariables=PYTHONPATH
+
+[Application]
+path=<APPLAUNCHER_DIR>/python@PYTHON_EXE_SUFFIX_CONFIG@@CMAKE_EXECUTABLE_SUFFIX@
+
+[LibraryPaths]
+@PYTHONLAUNCHER_LIBRARY_PATHS@
+
+[PYTHONPATH]
+@PYTHONLAUNCHER_PYTHONPATH_PATHS@
+
+[EnvironmentVariables]
+PYTHONHOME=@PYTHONHOME@
