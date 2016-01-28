@@ -41,7 +41,7 @@ if((NOT DEFINED PYTHON_INCLUDE_DIR
    OR NOT DEFINED PYTHON_LIBRARY
    OR NOT DEFINED PYTHON_EXECUTABLE) AND NOT ${CMAKE_PROJECT_NAME}_USE_SYSTEM_${proj})
 
-  set(python_SOURCE_DIR "${CMAKE_BINARY_DIR}/Python-2.7.3")
+  set(python_SOURCE_DIR "${CMAKE_BINARY_DIR}/Python-2.7.11")
 
   set(EXTERNAL_PROJECT_OPTIONAL_ARGS)
   if(MSVC)
@@ -53,8 +53,8 @@ if((NOT DEFINED PYTHON_INCLUDE_DIR
   endif()
 
   ExternalProject_Add(python-source
-    URL "https://www.python.org/ftp/python/2.7.3/Python-2.7.3.tgz"
-    URL_MD5 "2cf641732ac23b18d139be077bd906cd"
+    URL "https://www.python.org/ftp/python/2.7.11/Python-2.7.11.tgz"
+    URL_MD5 "6b6076ec9e93f05dd63e47eb9c15728b"
     DOWNLOAD_DIR ${CMAKE_CURRENT_BINARY_DIR}
     SOURCE_DIR ${python_SOURCE_DIR}
     ${EXTERNAL_PROJECT_OPTIONAL_ARGS}
@@ -92,6 +92,17 @@ if((NOT DEFINED PYTHON_INCLUDE_DIR
       )
   endif()
 
+  # Force modules that statically link to zlib to not be built-in.  Otherwise,
+  # when building in Debug configuration, the Python library--which we force to
+  # build in Release configuration--would mix Debug and Release C runtime
+  # libraries.
+  if(WIN32)
+    list(APPEND EXTERNAL_PROJECT_OPTIONAL_CMAKE_ARGS
+        -DBUILTIN_BINASCII:BOOL=OFF
+        -DBUILTIN_ZLIB:BOOL=OFF
+      )
+  endif()
+
   set(EXTERNAL_PROJECT_OPTIONAL_CMAKE_CACHE_ARGS)
 
   # Force Python build to "Release".
@@ -105,8 +116,8 @@ if((NOT DEFINED PYTHON_INCLUDE_DIR
 
   ExternalProject_Add(${proj}
     ${${proj}_EP_ARGS}
-    GIT_REPOSITORY "${git_protocol}://github.com/davidsansome/python-cmake-buildsystem.git"
-    GIT_TAG "0a5127ba682c4ef033aa5468c01e8fb69f874a98"
+    GIT_REPOSITORY "${git_protocol}://github.com/python-cmake-buildsystem/python-cmake-buildsystem.git"
+    GIT_TAG "b012e1e718250b8d94256beca97dcbca24d463db"
     SOURCE_DIR ${CMAKE_BINARY_DIR}/${proj}
     BINARY_DIR ${proj}-build
     CMAKE_CACHE_ARGS
@@ -119,6 +130,9 @@ if((NOT DEFINED PYTHON_INCLUDE_DIR
       -DBUILD_SHARED:BOOL=ON
       -DBUILD_STATIC:BOOL=OFF
       -DUSE_SYSTEM_LIBRARIES:BOOL=OFF
+      -DSRC_DIR:PATH=${python_SOURCE_DIR}
+      -DDOWNLOAD_SOURCES:BOOL=OFF
+      -DINSTALL_WINDOWS_TRADITIONAL:BOOL=OFF
       -DZLIB_INCLUDE_DIR:PATH=${ZLIB_INCLUDE_DIR}
       -DZLIB_LIBRARY:FILEPATH=${ZLIB_LIBRARY}
       -DENABLE_TKINTER:BOOL=${Slicer_USE_PYTHONQT_WITH_TCL}
@@ -312,3 +326,4 @@ print('Removing %s [done]' % dir)
     DEPENDEES install
     )
 endfunction()
+
