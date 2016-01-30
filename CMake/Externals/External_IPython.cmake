@@ -24,12 +24,12 @@ if(NOT DEFINED ${proj}_DIR AND NOT ${CMAKE_PROJECT_NAME}_USE_SYSTEM_${proj})
   ExternalProject_Add(${proj}
     ${${proj}_EP_ARGS}
     GIT_REPOSITORY "${git_protocol}://github.com/ipython/ipython.git"
-    GIT_TAG "rel-2.1.0"
+    GIT_TAG "rel-3.2.0"
     SOURCE_DIR ${proj}
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
-    INSTALL_COMMAND ${PYTHON_EXECUTABLE} setup.py install
+    INSTALL_COMMAND ${PYTHON_EXECUTABLE} setup.py develop
     DEPENDS
       ${${proj}_DEPENDENCIES}
     )

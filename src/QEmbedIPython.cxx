@@ -19,9 +19,10 @@ int main(int argc, char** argv)
   // Use Unix-style argument names
   parser.setArgumentPrefix("--", "-");
 
-  qEmbedIPythonPythonManager pythonManager;
-
   ctkPythonConsole console;
+
+  qEmbedIPythonPythonManager pythonManager(&console);
+
   console.initialize(&pythonManager);
   console.setAttribute(Qt::WA_QuitOnClose, true);
   console.resize(600, 280);

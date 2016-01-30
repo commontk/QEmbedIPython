@@ -18,6 +18,9 @@ public:
   typedef ctkAbstractPythonManager Superclass;
   qEmbedIPythonPythonManager(QObject* parent=0);
   ~qEmbedIPythonPythonManager();
+
+public slots:
+  void embedIPythonKernel();
   
 protected:
 

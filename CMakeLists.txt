@@ -14,6 +14,7 @@ include(ExternalProject)
 include(ExternalProjectDependency)
 
 #------------------------------------------------------------------------------
+include(ListToString)
 include(GenerateExportHeader)
 include(SlicerMacroGetOperatingSystemArchitectureBitness)
 
@@ -31,6 +32,8 @@ endif()
 #-----------------------------------------------------------------------------
 find_package(Qt4 REQUIRED)
 mark_as_superbuild(VARS QT_QMAKE_EXECUTABLE LABELS "FIND_PACKAGE")
+
+set(PYTHON_ENABLE_SSL 1)
 
 #------------------------------------------------------------------------------
 # Configure and build top-level project

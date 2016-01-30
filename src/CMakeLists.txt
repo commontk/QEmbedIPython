@@ -86,6 +86,7 @@ include(${CTKAPPLAUNCHER_DIR}/CMake/ctkAppLauncher.cmake)
 set(${PROJECT_NAME}_LIBRARY_PATHS_BUILD
   <APPLAUNCHER_DIR>/bin/<CMAKE_CFG_INTDIR>
   ${CTK_DIR}/CTK-build/bin/<CMAKE_CFG_INTDIR>
+  ${OPENSSL_EXPORT_LIBRARY_DIR}
   ${QT_LIBRARY_DIR}
   )
 if(NOT Slicer_USE_SYSTEM_python)
@@ -99,9 +100,13 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
   set(pythonpath_subdir Lib)
 endif()
 
+# XXX Launcher should be configured using settings set in external projects
+set(python_DIR ${CMAKE_BINARY_DIR}/../python-install)
+
 # PATHS
 set(${PROJECT_NAME}_PATHS_BUILD
   ${QT_BINARY_DIR}
+  ${python_DIR}/bin
   )
 
 # ENVVARS
@@ -117,6 +122,10 @@ if(NOT ${PROJECT_NAME}_USE_SYSTEM_python)
     "${PYTHONHOME}/${pythonpath_subdir}"
     "${PYTHONHOME}/${pythonpath_subdir}/lib-dynload"
     "${PYTHONHOME}/${pythonpath_subdir}/site-packages"
+    # XXX Support dev mode
+    "${CMAKE_BINARY_DIR}/../IPython/src/traitlets"
+    "${CMAKE_BINARY_DIR}/../IPython"
+    "/home/jcfr/Projects/existingkernel"
     )
 endif()
 

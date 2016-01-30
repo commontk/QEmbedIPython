@@ -72,6 +72,9 @@ endfunction()
 
 set(PYTHONHOME "${python_DIR}")
 
+set(_paths_build ${python_DIR}/bin)
+_listToQtSettingsArray("${_paths_build}" "path" PYTHONLAUNCHER_PATHS)
+
 set(_library_paths_build ${slicer_PYTHON_SHARED_LIBRARY_DIR})
 if(PYTHON_ENABLE_SSL)
   list(APPEND _library_paths_build

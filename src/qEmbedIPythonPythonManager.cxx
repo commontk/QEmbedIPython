@@ -3,6 +3,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QApplication>
+#include <QTimer>
 
 // PythonQT includes
 #include <PythonQt.h>
@@ -33,7 +34,16 @@ QStringList qEmbedIPythonPythonManager::pythonPaths()
 void qEmbedIPythonPythonManager::preInitialization()
 {
   this->Superclass::preInitialization();
+  this->addObjectToPythonMain("_app", qApp);
+  this->addObjectToPythonMain("_console", this->parent());
+  this->addObjectToPythonMain("_pythonqt", PythonQt::self());
+}
 
+//-----------------------------------------------------------------------------
+void qEmbedIPythonPythonManager::embedIPythonKernel()
+{
+  this->executeString("import pythonqt_embed_ipython_kernel as peik");
+  this->executeString("peik.embed_kernel()");
 }
 
 //-----------------------------------------------------------------------------
@@ -51,5 +61,7 @@ void qEmbedIPythonPythonManager::executeInitializationScripts()
 
   // Evaluate application script
   //this->executeFile(initFile);
+
+  QTimer::singleShot(0, this, SLOT(embedIPythonKernel()));
 }
 

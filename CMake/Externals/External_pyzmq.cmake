@@ -24,7 +24,7 @@ if(NOT ${CMAKE_PROJECT_NAME}_USE_SYSTEM_${proj})
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
-    INSTALL_COMMAND ${PYTHON_EXECUTABLE} setup.py install --prefix=${ZeroMQ_DIR}
+    INSTALL_COMMAND ${PYTHON_EXECUTABLE} setup.py install --prefix=${python_DIR}
     DEPENDS
       ${${proj}_DEPENDENCIES}
     )
