@@ -1,7 +1,7 @@
 set(proj pyzmq)
 
 # Set dependency list
-set(${proj}_DEPENDENCIES python ZeroMQ)
+set(${proj}_DEPENDENCIES python ZeroMQ python-setuptools)
 
 # Include dependent projects if any
 ExternalProject_Include_Dependencies(${proj} PROJECT_VAR proj DEPENDS_VAR ${proj}_DEPENDENCIES)
