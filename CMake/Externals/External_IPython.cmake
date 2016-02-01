@@ -23,8 +23,9 @@ if(NOT DEFINED ${proj}_DIR AND NOT ${CMAKE_PROJECT_NAME}_USE_SYSTEM_${proj})
 
   ExternalProject_Add(${proj}
     ${${proj}_EP_ARGS}
-    GIT_REPOSITORY "${git_protocol}://github.com/ipython/ipython.git"
-    GIT_TAG "rel-3.2.0"
+    GIT_REPOSITORY "${git_protocol}://github.com/jcfr/IPython.git"
+    # Topic rel-3.2.0-integrate-zmq-kernalapp-with-pythonqt
+    GIT_TAG "f3760f9256540f3b58713ab16cdfabf02564e539"
     SOURCE_DIR ${proj}
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ""
