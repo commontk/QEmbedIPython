@@ -26,7 +26,7 @@ if(NOT DEFINED ${proj}_DIR AND NOT ${CMAKE_PROJECT_NAME}_USE_SYSTEM_${proj})
   ExternalProject_Add(${proj}
     ${${proj}_EP_ARGS}
     GIT_REPOSITORY "${git_protocol}://github.com/zeromq/zeromq4-x.git"
-    GIT_TAG "v4.0.7"
+    GIT_TAG "055de7fb7a3b010b639e20bcd4868fee6cd4afcb"
     SOURCE_DIR ${CMAKE_BINARY_DIR}/${proj}
     BINARY_DIR ${proj}-build
     INSTALL_DIR ${proj}-install
