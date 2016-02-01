@@ -125,7 +125,6 @@ if(NOT ${PROJECT_NAME}_USE_SYSTEM_python)
     # XXX Support dev mode
     "${CMAKE_BINARY_DIR}/../IPython/src/traitlets"
     "${CMAKE_BINARY_DIR}/../IPython"
-    "/home/jcfr/Projects/existingkernel"
     )
 endif()
 
