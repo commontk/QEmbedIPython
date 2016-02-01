@@ -41,7 +41,7 @@ set(PYTHON_ENABLE_SSL 1)
 option(${PROJECT_NAME}_SUPERBUILD "Build ${PROJECT_NAME} and the projects it depends on." ON)
 mark_as_advanced(${PROJECT_NAME}_SUPERBUILD)
 if(${PROJECT_NAME}_SUPERBUILD)
-  set(${PROJECT_NAME}_DEPENDENCIES CTK IPython)
+  set(${PROJECT_NAME}_DEPENDENCIES CTK IPython pythonqt-embed-ipython-kernel existingkernel)
   ExternalProject_Include_Dependencies(${PROJECT_NAME} DEPENDS_VAR ${PROJECT_NAME}_DEPENDENCIES)
   ExternalProject_Add(${PROJECT_NAME}
     ${${PROJECT_NAME}_EP_ARGS}
