@@ -3,6 +3,9 @@
 // Qt includes
 #include <QApplication>
 
+// PythonQt includes
+#include <PythonQt.h>
+
 // CTK includes
 #include <ctkCommandLineParser.h>
 #include <ctkPythonConsole.h>
@@ -22,6 +25,7 @@ int main(int argc, char** argv)
   ctkPythonConsole console;
 
   qEmbedIPythonPythonManager pythonManager(&console);
+  pythonManager.setInitializationFlags(PythonQt::RedirectStdOut);
 
   console.initialize(&pythonManager);
   console.setAttribute(Qt::WA_QuitOnClose, true);
