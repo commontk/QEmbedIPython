@@ -91,8 +91,20 @@ _listToQtSettingsArray("${_pythonpath_paths_build}" "path" PYTHONLAUNCHER_PYTHON
 
 set(PYTHON_EXE_SUFFIX_CONFIG "")
 
-# Configure SlicerPython launcher settings.
 get_filename_component(python_bin_dir "${slicer_PYTHON_REAL_EXECUTABLE}" PATH)
+
+# XXX Download only if not already exists
+if(NOT EXISTS ${python_bin_dir}/QEmbedIPython.crt)
+  file(DOWNLOAD
+    https://raw.githubusercontent.com/Slicer/Slicer/master/Base/QTCore/Resources/Certs/Slicer.crt
+    ${python_bin_dir}/QEmbedIPython.crt
+    )
+endif()
+
+set(SSL_CERT_FILE_CONFIG
+    "SSL_CERT_FILE=<APPLAUNCHER_DIR>/QEmbedIPython.crt")
+
+# Configure SlicerPython launcher settings.
 configure_file(
   "@CMAKE_CURRENT_SOURCE_DIR@/CMake/Externals/python_customPythonLauncherSettings.ini.in"
   ${python_bin_dir}/@CMAKE_PROJECT_NAME@LauncherSettings.ini
