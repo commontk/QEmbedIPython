@@ -103,39 +103,4 @@ configure_file(
 # Settings specific to the install tree.
 #-----------------------------------------------------------------------------
 
-set(PYTHONHOME "<APPLAUNCHER_DIR>/../lib/Python")
-
-# Windows:
-#   Python library    -> Slicer_BIN_DIR
-#   OpenSSL libraries -> Slicer_BIN_DIR
-# Unix:
-#   Python library    -> lib/Python/lib
-#   OpenSSL libraries -> Slicer_LIB_DIR
-
-set(_library_paths_installed
-  <APPLAUNCHER_DIR>/../${Slicer_BIN_DIR}
-  <APPLAUNCHER_DIR>/../${Slicer_LIB_DIR}
-  <APPLAUNCHER_DIR>/../lib/Python/lib
-  )
-_listToQtSettingsArray("${_library_paths_installed}" "path" PYTHONLAUNCHER_LIBRARY_PATHS)
-
-set(_pythonpath_paths_installed
-  "${PYTHONHOME}/lib/Python/${pythonpath_subdir}"
-  "${PYTHONHOME}/lib/Python/${pythonpath_subdir}/lib-dynload"
-  "${PYTHONHOME}/lib/Python/${pythonpath_subdir}/site-packages"
-  "<APPLAUNCHER_DIR>/../${Slicer_BIN_DIR}/Python"
-  )
-_listToQtSettingsArray("${_pythonpath_paths_installed}" "path" PYTHONLAUNCHER_PYTHONPATH_PATHS)
-
-set(PYTHON_EXE_SUFFIX_CONFIG "-real")
-
-# Configure SlicerPython launcher settings.
-get_filename_component(python_bin_dir "${slicer_PYTHON_REAL_EXECUTABLE}" PATH)
-configure_file(
-  "@CMAKE_CURRENT_SOURCE_DIR@/CMake/Externals/python_customPythonLauncherSettings.ini.in"
-  ${python_bin_dir}/@CMAKE_PROJECT_NAME@LauncherSettingsToInstall.ini
-  @ONLY
-  )
-
-# Note: Install rules for SlicerPythonLauncherSettingsToInstall.ini and SlicerPython executable
-#       are specified in SlicerBlockInstallPython.cmake
+# Not supported by this project
