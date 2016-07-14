@@ -1,7 +1,7 @@
 set(proj pythonqt-embed-ipython-kernel)
 
 # Set dependency list
-set(${proj}_DEPENDENCIES python IPython python-setuptools)
+set(${proj}_DEPENDENCIES python IPython python-pip)
 
 # Include dependent projects if any
 ExternalProject_Include_Dependencies(${proj} PROJECT_VAR proj DEPENDS_VAR ${proj}_DEPENDENCIES)
@@ -24,12 +24,10 @@ if(NOT ${CMAKE_PROJECT_NAME}_USE_SYSTEM_${proj})
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
-    INSTALL_COMMAND ${PYTHON_EXECUTABLE} setup.py develop --prefix=${python_DIR}
+    INSTALL_COMMAND ${PYTHON_EXECUTABLE} setup.py develop
     DEPENDS
       ${${proj}_DEPENDENCIES}
     )
-
-  set(_EP_${proj}_SETUPTOOLS_LOCK 1)
 
 else()
   ExternalProject_Add_Empty(${proj} DEPENDS ${${proj}_DEPENDENCIES})

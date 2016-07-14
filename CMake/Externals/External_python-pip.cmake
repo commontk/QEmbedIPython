@@ -1,4 +1,4 @@
-set(proj python-setuptools)
+set(proj python-pip)
 
 # Set dependency list
 set(${proj}_DEPENDENCIES python)
@@ -28,17 +28,21 @@ if(NOT ${CMAKE_PROJECT_NAME}_USE_SYSTEM_${proj})
   ExternalProject_Write_SetPythonSetupEnv_Commands(${_env_script} APPEND)
 
   # install step
+  configure_file(
+    ${CMAKE_SOURCE_DIR}/CMake/Externals/get-pip.py
+    ${CMAKE_BINARY_DIR}/${proj}
+    COPYONLY
+    )
   set(_install_script ${CMAKE_BINARY_DIR}/${proj}_install_step.cmake)
   file(WRITE ${_install_script}
 "include(\"${_env_script}\")
 set(${proj}_WORKING_DIR \"${CMAKE_BINARY_DIR}/${proj}\")
-ExternalProject_Execute(${proj} \"install\" \"${PYTHON_EXECUTABLE}\" setup.py install)
+ExternalProject_Execute(${proj} \"install\" \"${PYTHON_EXECUTABLE}\" get-pip.py)
 ")
 
   ExternalProject_Add(${proj}
     ${${proj}_EP_ARGS}
-    GIT_REPOSITORY "${git_protocol}://github.com/Slicer/setuptools.git"
-    GIT_TAG "ca727b48c1d6477cb691db77e22435f99c032457"
+    DOWNLOAD_COMMAND ""
     SOURCE_DIR ${proj}
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ""
@@ -47,6 +51,9 @@ ExternalProject_Execute(${proj} \"install\" \"${PYTHON_EXECUTABLE}\" setup.py in
     DEPENDS
       ${${proj}_DEPENDENCIES}
     )
+
+  # XXX Support windows
+  set(PIP_EXECUTABLE ${PYTHON_EXECUTABLE} -m pip)
 
 else()
   ExternalProject_Add_Empty(${proj} DEPENDS ${${proj}_DEPENDENCIES})

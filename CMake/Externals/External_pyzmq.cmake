@@ -1,7 +1,7 @@
 set(proj pyzmq)
 
 # Set dependency list
-set(${proj}_DEPENDENCIES python ZeroMQ python-setuptools)
+set(${proj}_DEPENDENCIES python ZeroMQ python-pip)
 
 # Include dependent projects if any
 ExternalProject_Include_Dependencies(${proj} PROJECT_VAR proj DEPENDS_VAR ${proj}_DEPENDENCIES)
@@ -28,8 +28,6 @@ if(NOT ${CMAKE_PROJECT_NAME}_USE_SYSTEM_${proj})
     DEPENDS
       ${${proj}_DEPENDENCIES}
     )
-
-  set(_EP_${proj}_SETUPTOOLS_LOCK 1)
 
 else()
   ExternalProject_Add_Empty(${proj} DEPENDS ${${proj}_DEPENDENCIES})

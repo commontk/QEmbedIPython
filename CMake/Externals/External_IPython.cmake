@@ -2,7 +2,7 @@
 set(proj IPython)
 
 # Set dependency list
-set(${proj}_DEPENDENCIES python pyzmq)
+set(${proj}_DEPENDENCIES python pyzmq python-pip)
 
 # Include dependent projects if any
 ExternalProject_Include_Dependencies(${proj} PROJECT_VAR proj DEPENDS_VAR ${proj}_DEPENDENCIES)
@@ -30,7 +30,7 @@ if(NOT DEFINED ${proj}_DIR AND NOT ${CMAKE_PROJECT_NAME}_USE_SYSTEM_${proj})
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
-    INSTALL_COMMAND ${PYTHON_EXECUTABLE} setup.py develop
+    INSTALL_COMMAND ${PIP_EXECUTABLE} install -e .
     DEPENDS
       ${${proj}_DEPENDENCIES}
     )
