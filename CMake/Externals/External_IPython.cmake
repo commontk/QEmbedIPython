@@ -30,7 +30,7 @@ if(NOT DEFINED ${proj}_DIR AND NOT ${CMAKE_PROJECT_NAME}_USE_SYSTEM_${proj})
     BUILD_IN_SOURCE 1
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
-    INSTALL_COMMAND ${PIP_EXECUTABLE} install -e .
+    INSTALL_COMMAND ${PIP_EXECUTABLE} install -e .[notebook]
     DEPENDS
       ${${proj}_DEPENDENCIES}
     )
