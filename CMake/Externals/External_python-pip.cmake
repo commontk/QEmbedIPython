@@ -28,9 +28,10 @@ if(NOT ${CMAKE_PROJECT_NAME}_USE_SYSTEM_${proj})
   ExternalProject_Write_SetPythonSetupEnv_Commands(${_env_script} APPEND)
 
   # install step
+  file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/${proj})
   configure_file(
     ${CMAKE_SOURCE_DIR}/CMake/Externals/get-pip.py
-    ${CMAKE_BINARY_DIR}/${proj}
+    ${CMAKE_BINARY_DIR}/${proj}/get-pip.py
     COPYONLY
     )
   set(_install_script ${CMAKE_BINARY_DIR}/${proj}_install_step.cmake)
