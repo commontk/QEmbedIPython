@@ -138,3 +138,11 @@ ctkAppLauncherConfigure(
   ADDITIONAL_PATH_ENVVARS_BUILD ${${PROJECT_NAME}_ADDITIONAL_PATH_ENVVARS_BUILD}
   ADDITIONAL_PATH_ENVVARS_PREFIX ${PROJECT_NAME}_
   )
+
+set(QEmbedIPython_LAUNCHER_EXECUTABLE ${QEmbedIPython_BINARY_DIR}/../python-install/bin/${PROJECT_NAME}${CMAKE_EXECUTABLE_SUFFIX})
+set(QEmbedIPython_LAUNCH_COMMAND ${QEmbedIPython_LAUNCHER_EXECUTABLE} --launcher-no-splash --launch)
+
+add_custom_target(StartIPythonServer
+  COMMAND ${QEmbedIPython_LAUNCH_COMMAND} ipython notebook --NotebookApp.kernel_manager_class=existingkernel.managers.ExistingMappingKernelManager
+  COMMENT "Starting IPython server"
+  )
